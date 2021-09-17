@@ -11,8 +11,6 @@ RSpec.describe 'get all user subscriptions' do
     subscription1 = create(:subscription, tea_id: tea1.id, customer_id: customer.id, active: true)
     subscription2 = create(:subscription, tea_id: tea2.id, customer_id: customer.id, active: true)
 
-
-
     get "/api/v1/customers/#{customer.id}/subscriptions"
 
     expect(response.status).to eq(200)
@@ -40,7 +38,25 @@ RSpec.describe 'get all user subscriptions' do
     expect(reply[:data][2][:attributes][:customer_id]).to eq(customer.id)
     expect(reply[:data][2][:attributes][:tea_id]).to eq(tea2.id)
     expect(reply[:data][2][:attributes][:active]).to eq(subscription2.active)
+  end
 
+  it 'returns a custom response if customer does not exist' do
+    get '/api/v1/customers/123234/subscriptions'
+
+    expect(response.status).to eq(404)
+  end
+
+  it 'returns an empty data array if customer has no subscriptions' do
+    customer = create(:customer)
+
+    get "/api/v1/customers/#{customer.id}/subscriptions"
+
+    expect(response.status).to eq(200)
+
+    reply = JSON.parse(response.body, symbolize_names: true)
+
+    expect(reply[:data]).to be_an(Array)
+    expect(reply[:data].count).to eq(0)
 
   end
 end
