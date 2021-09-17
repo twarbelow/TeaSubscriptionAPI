@@ -6,7 +6,7 @@ RSpec.describe 'subscription creation' do
     tea = create(:tea)
     json_body = {"tea_id": tea.id}
 
-    post "/api/v1/customers/#{customer.id}/subscription", params: json_body
+    post "/api/v1/customers/#{customer.id}/subscriptions", params: json_body
 
     expect(response.status).to eq(201)
 
