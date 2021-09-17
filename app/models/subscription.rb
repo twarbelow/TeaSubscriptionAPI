@@ -1,6 +1,6 @@
 class Subscription < ApplicationRecord
-  validates :active, presence: true
-  
+  validates :active, presence: false
+
   belongs_to :customer
   belongs_to :tea
 end

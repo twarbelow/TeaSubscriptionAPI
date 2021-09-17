@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'subscription creation' do
+RSpec.describe 'subscription update' do
   it 'accepts json body and post to create' do
     customer = create(:customer)
     tea = create(:tea)
