@@ -40,7 +40,7 @@ RSpec.describe 'get all user subscriptions' do
     expect(reply[:data][2][:attributes][:active]).to eq(subscription2.active)
   end
 
-  it 'returns a custom response if customer does not exist' do
+  it 'returns a 404 response if customer does not exist' do
     get '/api/v1/customers/123234/subscriptions'
 
     expect(response.status).to eq(404)
