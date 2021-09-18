@@ -19,14 +19,11 @@ RSpec.describe 'subscription creation' do
     expect(reply[:data][:attributes][:active]).to eq(true)
   end
 
-  it '' do
-    # missing required param
+  it 'returns 404 is no tea_id is present in params' do
+    customer = create(:customer)
+    post "/api/v1/customers/#{customer.id}/subscriptions"
 
-  end
-
-  it '' do
-    # required param present but wrong data type (unprocessable entity)
-
+    expect(response.status).to eq(404)
   end
 
   it 'returns 404 if tea does not exist' do
