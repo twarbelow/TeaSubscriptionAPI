@@ -18,4 +18,31 @@ RSpec.describe 'subscription creation' do
     expect(reply[:data][:attributes][:tea_id]).to eq(json_body[:tea_id])
     expect(reply[:data][:attributes][:active]).to eq(true)
   end
+
+  it 'returns 404 is no tea_id is present in params' do
+    customer = create(:customer)
+    post "/api/v1/customers/#{customer.id}/subscriptions"
+
+    expect(response.status).to eq(404)
+  end
+
+  it 'returns 404 if tea does not exist' do
+    customer = create(:customer)
+
+    post "/api/v1/customers/#{customer.id}/subscriptions", params: {tea_id: 123234}
+
+    expect(response.status).to eq(404)
+  end
+
+  it 'returns 404 if customer does not exist' do
+    tea = create(:tea)
+    json_body = {"tea_id": tea.id}
+
+    post "/api/v1/customers/123174634736/subscriptions", params: json_body
+
+    expect(response.status).to eq(404)
+  end
+
+  # TO DO
+  # subscription already exists (304?)
 end

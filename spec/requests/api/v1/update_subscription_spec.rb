@@ -19,4 +19,23 @@ RSpec.describe 'subscription update' do
     expect(reply[:data][:attributes][:tea_id]).to eq(tea.id)
     expect(reply[:data][:attributes][:active]).to eq(false)
   end
+
+  it 'returns a 404 response if subscription does not exist' do
+    json_body = {"active": "false"}
+
+    patch "/api/v1/subscriptions/123234345", params: json_body
+
+    expect(response.status).to eq(404)
+  end
+
+  it 'returns 400 if active param is not true or false' do
+    customer = create(:customer)
+    tea = create(:tea)
+    subscription = create(:subscription, tea_id: tea.id, customer_id: customer.id, active: true)
+    json_body = {"active": "kittens"}
+
+    patch "/api/v1/subscriptions/#{subscription.id}", params: json_body
+
+    expect(response.status).to eq(400)
+  end
 end
