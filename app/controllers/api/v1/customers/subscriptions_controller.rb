@@ -1,5 +1,4 @@
 class Api::V1::Customers::SubscriptionsController < ApplicationController
-  # rescue ActiveRecord::RecordNotFound
 
   def index
     if Customer.find(params[:id])
