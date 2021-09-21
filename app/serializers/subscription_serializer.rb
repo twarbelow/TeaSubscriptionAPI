@@ -17,6 +17,7 @@ class SubscriptionSerializer < ActiveModel::Serializer
   end
 
   def self.render_all(subscriptions)
+    require 'pry'; binding.pry
     {
   data:
     subscriptions.map do |subscription|
