@@ -8,7 +8,7 @@ RSpec.describe 'get all user subscriptions' do
     tea1 = create(:tea)
     tea2 = create(:tea)
     subscription = create(:subscription, tea_id: tea.id, customer_id: customer.id, active: true)
-    subscription1 = create(:subscription, tea_id: tea1.id, customer_id: customer.id, active: true)
+    subscription1 = create(:subscription, tea_id: tea1.id, customer_id: customer.id, active: false)
     subscription2 = create(:subscription, tea_id: tea2.id, customer_id: customer.id, active: true)
 
     get "/api/v1/customers/#{customer.id}/subscriptions"
