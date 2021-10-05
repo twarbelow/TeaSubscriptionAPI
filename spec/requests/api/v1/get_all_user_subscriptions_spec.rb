@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'get all user subscriptions' do
@@ -21,20 +23,20 @@ RSpec.describe 'get all user subscriptions' do
     expect(reply[:data].count).to eq(3)
 
     expect(reply[:data][0][:id]).to eq(subscription.id)
-    expect(reply[:data][0][:type]).to eq("subscription")
+    expect(reply[:data][0][:type]).to eq('subscription')
     expect(reply[:data][0][:attributes][:customer_id]).to eq(customer.id)
     expect(reply[:data][0][:attributes][:tea_id]).to eq(tea.id)
     expect(reply[:data][0][:attributes][:active]).to be(subscription.active)
 
     expect(reply[:data][1][:id]).to eq(subscription1.id)
-    expect(reply[:data][1][:type]).to eq("subscription")
+    expect(reply[:data][1][:type]).to eq('subscription')
     expect(reply[:data][1][:attributes][:customer_id]).to eq(customer.id)
     expect(reply[:data][1][:attributes][:tea_id]).to eq(tea1.id)
     expect(reply[:data][1][:attributes][:active]).to be(subscription1.active)
 
     expect(reply[:data]).to be_an(Array)
     expect(reply[:data][2][:id]).to eq(subscription2.id)
-    expect(reply[:data][2][:type]).to eq("subscription")
+    expect(reply[:data][2][:type]).to eq('subscription')
     expect(reply[:data][2][:attributes][:customer_id]).to eq(customer.id)
     expect(reply[:data][2][:attributes][:tea_id]).to eq(tea2.id)
     expect(reply[:data][2][:attributes][:active]).to eq(subscription2.active)
@@ -57,6 +59,5 @@ RSpec.describe 'get all user subscriptions' do
 
     expect(reply[:data]).to be_an(Array)
     expect(reply[:data].count).to eq(0)
-
   end
 end

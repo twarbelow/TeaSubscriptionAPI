@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tea < ApplicationRecord
   validates :title, presence: true
 
