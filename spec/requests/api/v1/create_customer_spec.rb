@@ -19,4 +19,36 @@ RSpec.describe 'customer creation' do
     expect(reply[:data][:attributes][:name]).to eq(name)
     expect(reply[:data][:attributes][:email]).to eq(email)
   end
+
+  it 'returns 400 if email is already in use' do
+    in_use = create(:customer)
+    name = Faker::Name.name
+    email = in_use.email
+
+    json_body = { "name": name, "email": email }
+
+    post '/api/v1/customers', params: json_body
+
+    expect(response.status).to eq(400)
+  end
+
+  it 'returns 400 if email is missing' do
+    name = Faker::Name.name
+
+    json_body = { "name": name }
+
+    post '/api/v1/customers', params: json_body
+
+    expect(response.status).to eq(400)
+  end
+
+  it 'returns 400 if name is missing' do
+    email = Faker::Internet.email
+
+    json_body = { "email": email }
+
+    post '/api/v1/customers', params: json_body
+
+    expect(response.status).to eq(400)
+  end
 end
