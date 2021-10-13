@@ -31,4 +31,24 @@ RSpec.describe 'customer creation' do
 
     expect(response.status).to eq(400)
   end
+
+  it 'returns 400 if email is missing' do
+    name = Faker::Name.name
+
+    json_body = { "name": name }
+
+    post '/api/v1/customers', params: json_body
+
+    expect(response.status).to eq(400)
+  end
+
+  it 'returns 400 if name is missing' do
+    email = Faker::Internet.email
+
+    json_body = { "email": email }
+
+    post '/api/v1/customers', params: json_body
+
+    expect(response.status).to eq(400)
+  end
 end
